@@ -1,0 +1,47 @@
+name: milestone
+description: A new Flutter application.
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^0.1.2
+  rxdart:
+  flutter_vector_icons:
+  http:
+  shared_preferences:
+  xs_progress_hud:
+  connectivity:
+  device_id:
+  intl:
+  youtube_player:
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+
+  fonts:
+    - family: Quicksand
+      fonts:
+        - asset: assets/fonts/quicksand_medium.ttf
+          style: normal
+        - asset: assets/fonts/quicksand_bold.otf
+          weight: 700
+
+
+    - family: Raleway
+      fonts:
+        - asset: assets/fonts/raleway_regular.ttf
+          style: normal
+        - asset: assets/fonts/raleway_medium.ttf
