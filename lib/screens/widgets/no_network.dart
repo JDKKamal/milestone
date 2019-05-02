@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:milestone/helpers/vars.dart';
 
 class NoNetwork extends StatefulWidget {
   @override
@@ -17,7 +18,7 @@ class _NoNetwork extends State<NoNetwork> with SingleTickerProviderStateMixin {
             style: TextStyle(
               color: Colors.white,
               fontSize: 36.0,
-              fontFamily: "TitilliumWeb-Regular",
+              fontFamily: '$ralewayFont',
             ),
           ),
         ),
