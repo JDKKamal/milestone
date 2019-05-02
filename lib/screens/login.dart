@@ -9,6 +9,7 @@ import 'package:milestone/flutter_bloc/bloc_provider.dart';
 import 'package:milestone/helpers/initial_screen.dart';
 import 'package:milestone/helpers/vars.dart';
 import 'package:milestone/models/user.dart';
+import 'package:milestone/screens/widgets/animatedbutton.dart';
 import 'package:milestone/screens/widgets/common_dialogs.dart';
 import 'package:milestone/screens/widgets/editable.dart';
 
@@ -20,6 +21,8 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   RegisterBloc registerBloc;
   UserBloc userBloc;
+  final LoginErrorMessageController loginErrorMessageController =
+      LoginErrorMessageController();
 
   @override
   void initState() {
@@ -86,31 +89,20 @@ class _LoginPageState extends State<LoginPage> {
               },
             ),
             BlocBuilder<RegisterEvent, RegisterState>(
-              bloc: registerBloc,
-              builder: (BuildContext context, RegisterState state) {
-
-                return FlatButton(
-                  onPressed: onRegisterDevice,
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30.0),
-                  ),
-                  child: Text(
-                    "Register".toUpperCase(),
-                    style: TextStyle(
-                      color: state.mobile != null && state.error != null
-                          ? Colors.white
-                          : Colors.black,
-                      fontFamily: '$ralewayFont',
-                    ),
-                  ),
-                  color: state.mobile != null && state.error != null
-                      ? Colors.red
-                      : Colors.white,
-                );
-              },
-            ),
+                bloc: registerBloc,
+                builder: (BuildContext context, RegisterState state) {
+                  if (state.error != null && state.error.containsKey('error')) {
+                    loginErrorMessageController.showErrorMessage('Loading'); //state.error['error']
+                  }
+                  return new AnimatedButton(
+                    loginErrorMessageController: loginErrorMessageController,
+                    loginTip: 'Login',
+                    onTap: () async {
+                      onRegisterDevice();
+                      loginErrorMessageController.showErrorMessage("Loading");
+                    },
+                  );
+                }),
             Container(height: 50.0),
           ],
         ),
@@ -119,10 +111,10 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void onRegisterDevice() async {
-    showProgress(context);
+    //showProgress(context);
 
     registerBloc.registerDevice((results) {
-      hideProgress(context);
+      //hideProgress(context);
 
       if (results != false) {
         User user = results;
@@ -137,8 +129,7 @@ class _LoginPageState extends State<LoginPage> {
             },
           ),
         );
-      } else {
-      }
+      } else {}
     });
   }
 }
