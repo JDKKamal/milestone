@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:milestone/helpers/vars.dart';
 
 class EditableFormField extends StatelessWidget {
   final TextEditingController controller;
@@ -29,7 +30,7 @@ class EditableFormField extends StatelessWidget {
         style: TextStyle(
           color: Colors.white,
           fontSize: 14.0,
-          fontFamily: 'TitilliumWeb-Regular',
+          fontFamily: '$ralewayFont',
         ),
         keyboardType: this.keyboardType ?? TextInputType.text,
         decoration: InputDecoration(
@@ -72,7 +73,7 @@ class EditableFormField extends StatelessWidget {
           labelStyle: TextStyle(
             color: Colors.white,
             fontSize: 14.0,
-            fontFamily: 'TitilliumWeb-Regular',
+            fontFamily: '$ralewayFont',
           ),
         ),
       ),

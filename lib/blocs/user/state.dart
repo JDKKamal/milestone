@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:milestone/src/models/user.dart';
+import 'package:milestone/models/user.dart';
 import 'package:meta/meta.dart';
 
 @immutable

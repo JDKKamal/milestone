@@ -1,33 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:biker/services/network_service_response.dart';
-import 'package:biker/utils/uidata.dart';
+import 'package:milestone/helpers/vars.dart';
 
-fetchApiResult(BuildContext context, NetworkServiceResponse snapshot) {
-  showDialog(
-    context: context,
-    builder: (context) => AlertDialog(
-          title:
-          Center(child: Text(UIData.error, style: TextStyle(fontWeight: FontWeight.w700, color: Colors.red.withOpacity(0.7), fontSize: 18.0))),
-          content: Text(snapshot.message, style: TextStyle(fontWeight: FontWeight.w700, color: Colors.black54, fontSize: 15.0)),
-          actions: <Widget>[
-            FlatButton(
-              child: Text(UIData.ok, style: TextStyle(fontWeight: FontWeight.w700, color: Colors.orange, fontSize: 15.0)),
-              onPressed: () => Navigator.pop(context),
-            )
-          ],
-        ),
-  );
-}
-
-toast(String msg) {
+/*toast(String msg) {
   Fluttertoast.showToast(
       msg: msg,
       toastLength: Toast.LENGTH_SHORT,
       gravity: ToastGravity.BOTTOM,
       backgroundColor: Colors.white,
       textColor: Colors.black);
-}
+}*/
 
 showSuccess(BuildContext context, String message, IconData icon) {
   showDialog(
@@ -53,7 +34,7 @@ showSuccess(BuildContext context, String message, IconData icon) {
                     Text(
                       message,
                       style: TextStyle(
-                          fontFamily: UIData.ralewayFont, color: Colors.white),
+                          fontFamily: '$ralewayFont', color: Colors.white),
                     )
                   ],
                 ),

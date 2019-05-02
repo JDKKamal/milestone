@@ -1,10 +1,10 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:milestone/src/blocs/user/bloc.dart';
-import 'package:milestone/src/blocs/user/state.dart';
-import 'package:milestone/src/helpers/initial_screen.dart';
-import 'package:milestone/src/screens/no_network.dart';
+import 'package:milestone/blocs/user/bloc.dart';
+import 'package:milestone/blocs/user/state.dart';
+import 'package:milestone/flutter_bloc/bloc_provider.dart';
+import 'package:milestone/helpers/initial_screen.dart';
+import 'package:milestone/screens/widgets/no_network.dart';
 
 class MyApp extends StatefulWidget {
   final String authToken;
@@ -32,7 +32,7 @@ class _MyAppState extends State<MyApp> {
       userBloc = BlocProvider.of<UserBloc>(context);
     });
 
-    userBloc.getAuthUser();
+    //userBloc.getAuthUser();
 
     userBloc.state.listen((state) {
       if (userState == null && state.user != null) {

@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:milestone/blocs/school/bloc.dart';
-import 'package:milestone/blocs/school/state.dart';
-import 'package:milestone/blocs/user/bloc.dart';
+import 'package:milestone/blocs/reason/bloc.dart';
+import 'package:milestone/blocs/reason/state.dart';
 import 'package:milestone/flutter_bloc/bloc_builder.dart';
 import 'package:milestone/flutter_bloc/bloc_provider.dart';
 import 'package:milestone/helpers/vars.dart';
-import 'package:milestone/models/school.dart';
+import 'package:milestone/models/reason.dart';
 
-class ChooseSchool extends StatefulWidget {
+class ChooseReason extends StatefulWidget {
   @override
-  _ChooseSchoolState createState() => _ChooseSchoolState();
+  _ChooseReasonState createState() => _ChooseReasonState();
 }
 
-class _ChooseSchoolState extends State<ChooseSchool> {
+class _ChooseReasonState extends State<ChooseReason> {
   SchoolBloc schoolBloc;
   String keywords;
 
@@ -32,7 +31,7 @@ class _ChooseSchoolState extends State<ChooseSchool> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black87,
+      backgroundColor: Colors.orange,
       body: SafeArea(
         child: BlocBuilder(
           bloc: schoolBloc,
@@ -41,9 +40,9 @@ class _ChooseSchoolState extends State<ChooseSchool> {
               return Center(child: CircularProgressIndicator());
             }
 
-            List schools = state.schools;
+            var reasonList = state.reasons;
             if (keywords != null) {
-              schools = state.schools.where((school) {
+              reasonList = state.reasons.where((school) {
                 return school.description
                     .toLowerCase()
                     .contains(keywords.toLowerCase());
@@ -69,15 +68,15 @@ class _ChooseSchoolState extends State<ChooseSchool> {
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                          color: Colors.blue,
+                          color: Colors.black,
                         ),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                          color: Colors.blue,
+                          color: Colors.black,
                         ),
                       ),
-                      labelText: "Filter School",
+                      labelText: "Filter Reason",
                       labelStyle: TextStyle(
                         color: Colors.white,
                         fontSize: 18.0,
@@ -90,9 +89,9 @@ class _ChooseSchoolState extends State<ChooseSchool> {
                   child: Container(
                     margin: EdgeInsets.only(left: 20.0),
                     child: ListView.builder(
-                      itemCount: schools.length,
+                      itemCount: reasonList.length,
                       itemBuilder: (BuildContext context, index) {
-                        final School school = schools[index];
+                        final Reason reason = reasonList[index];
                         return GestureDetector(
                           onTap: () {
 
@@ -100,10 +99,10 @@ class _ChooseSchoolState extends State<ChooseSchool> {
                           child: Container(
                             padding: EdgeInsets.all(10.0),
                             child: Text(
-                              '${schools[index].description}',
+                              '${reasonList[index].description}',
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 18.0,
+                                fontSize: 15.0,
                                 fontFamily: '$ralewayFont',
                               ),
                             ),

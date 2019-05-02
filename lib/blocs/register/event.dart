@@ -6,6 +6,12 @@ class ChangeMobile extends RegisterEvent {
   ChangeMobile({this.mobile});
 }
 
+class ChangePassword extends RegisterEvent {
+  final String password;
+
+  ChangePassword({this.password});
+}
+
 class SetUid extends RegisterEvent {
   final String uid;
 

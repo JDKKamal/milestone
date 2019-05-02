@@ -1,15 +1,15 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:bloc/bloc.dart';
-import 'package:milestone/src/blocs/user/event.dart';
-import 'package:milestone/src/blocs/user/state.dart';
-import 'package:milestone/src/models/user.dart';
-import 'package:milestone/src/resources/api.dart';
+import 'package:milestone/bloc.dart';
+import 'package:milestone/blocs/user/event.dart';
+import 'package:milestone/blocs/user/state.dart';
+import 'package:milestone/models/user.dart';
+import 'package:milestone/viewmodel/api_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserBloc extends Bloc<UserEvent, UserState> {
-  final ApiProvider _apiProvider = ApiProvider();
+  final ApiProvider apiProvider = ApiProvider();
 
   void updateState(key, value) {
     dispatch(UpdateState(key: key, value: value));
@@ -50,8 +50,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     if (event is GetAuthUser) {
       yield currentState.copyWith(loaded: false, loading: true);
 
-      try {
-        final response = await _apiProvider.getAuthUser();
+     /* try {
+        final response = await apiProvider.getAuthUser();
         final results = json.decode(response.body);
 
         if (results['user'] != null) {
@@ -65,42 +65,10 @@ class UserBloc extends Bloc<UserEvent, UserState> {
           loaded: true,
           loading: false,
         );
-      }
-    }
-
-    if (event is UpdateProfile) {
-      yield currentState.copyWith(loaded: false, loading: true);
-
-      try {
-        final response = await _apiProvider.updateProfile(currentState.user);
-        final results = json.decode(response.body);
-
-        if (results['user'] != null) {
-          dispatch(SetAuthUser(user: results['user']));
-          event.callback(true);
-        } else {
-          yield currentState.copyWith(
-            error: results['errors'],
-            loaded: true,
-            loading: false,
-          );
-
-          event.callback(false);
-        }
-      } catch (e) {
-        yield currentState.copyWith(
-          error: {"errors": "Error, Something bad happened."},
-          loaded: true,
-          loading: false,
-        );
-
-        event.callback(false);
-      }
+      }*/
     }
 
     if (event is SetAuthToken) {
-      print("Tag" + event.token.toString());
-
       SharedPreferences pref = await SharedPreferences.getInstance();
       pref.setString("authToken", event.token);
     }
@@ -109,7 +77,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       yield currentState.copyWith(
         loaded: true,
         loading: false,
-        user: User.fromJson(event.user),
+        user: event.user,
       );
     }
 

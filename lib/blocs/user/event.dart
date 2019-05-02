@@ -1,3 +1,5 @@
+import 'package:milestone/models/user.dart';
+
 abstract class UserEvent {}
 
 class UpdateState extends UserEvent {
@@ -16,7 +18,7 @@ class UpdateProfile extends UserEvent {
 }
 
 class SetAuthUser extends UserEvent {
-  final Map user;
+  final User user;
 
   SetAuthUser({this.user});
 }

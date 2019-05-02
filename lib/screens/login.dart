@@ -1,14 +1,16 @@
 import 'package:device_id/device_id.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:milestone/src/blocs/register/bloc.dart';
-import 'package:milestone/src/blocs/register/event.dart';
-import 'package:milestone/src/blocs/register/state.dart';
-import 'package:milestone/src/blocs/user/bloc.dart';
-import 'package:milestone/src/helpers/initial_screen.dart';
-import 'package:milestone/src/helpers/validation.dart';
-import 'package:milestone/src/screens/users/editable.dart';
-import 'package:xs_progress_hud/xs_progress_hud.dart';
+import 'package:milestone/blocs/Register/bloc.dart';
+import 'package:milestone/blocs/Register/event.dart';
+import 'package:milestone/blocs/Register/state.dart';
+import 'package:milestone/blocs/user/bloc.dart';
+import 'package:milestone/flutter_bloc.dart';
+import 'package:milestone/flutter_bloc/bloc_provider.dart';
+import 'package:milestone/helpers/initial_screen.dart';
+import 'package:milestone/helpers/vars.dart';
+import 'package:milestone/models/user.dart';
+import 'package:milestone/screens/widgets/common_dialogs.dart';
+import 'package:milestone/screens/widgets/editable.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -27,8 +29,6 @@ class _LoginPageState extends State<LoginPage> {
       registerBloc = BlocProvider.of<RegisterBloc>(context);
       userBloc = BlocProvider.of<UserBloc>(context);
     });
-
-    setUid();
   }
 
   setUid() async {
@@ -39,7 +39,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.orange,
       body: SafeArea(
         child: Column(
           children: [
@@ -49,21 +49,10 @@ class _LoginPageState extends State<LoginPage> {
                 padding: EdgeInsets.all(10.0),
                 alignment: Alignment.center,
                 width: double.infinity,
-                child: Image.asset(
-                  "assets/images/book.png",
-                  color: Colors.white,
-                ),
-              ),
-            ),
-            Expanded(
-              child: Container(
-                padding: EdgeInsets.all(10.0),
-                alignment: Alignment.center,
-                width: double.infinity,
                 child: Text(
                   "MileStone",
                   style: TextStyle(
-                    fontFamily: 'TitilliumWeb-Regular',
+                    fontFamily: '$ralewayFont',
                     fontWeight: FontWeight.bold,
                     fontSize: 36.0,
                     letterSpacing: 2.0,
@@ -79,8 +68,8 @@ class _LoginPageState extends State<LoginPage> {
                   maxLength: 10,
                   keyboardType: TextInputType.number,
                   controller: null,
-                  labelText: "Mobile Number",
-                  errorText: getErrorText(state, 'mobile'),
+                  labelText: "Mobile",
+                  //errorText: getErrorText(state, 'mobile'),
                   onChanged: registerBloc.onChangeMobile,
                 );
               },
@@ -88,6 +77,18 @@ class _LoginPageState extends State<LoginPage> {
             BlocBuilder<RegisterEvent, RegisterState>(
               bloc: registerBloc,
               builder: (BuildContext context, RegisterState state) {
+                return EditableFormField(
+                  keyboardType: TextInputType.number,
+                  controller: null,
+                  labelText: "Password",
+                  onChanged: registerBloc.onChangePassword,
+                );
+              },
+            ),
+            BlocBuilder<RegisterEvent, RegisterState>(
+              bloc: registerBloc,
+              builder: (BuildContext context, RegisterState state) {
+
                 return FlatButton(
                   onPressed: onRegisterDevice,
                   padding:
@@ -100,13 +101,13 @@ class _LoginPageState extends State<LoginPage> {
                     style: TextStyle(
                       color: state.mobile != null && state.error != null
                           ? Colors.white
-                          : Colors.white30,
-                      fontFamily: 'TitilliumWeb-SemiBold',
+                          : Colors.black,
+                      fontFamily: '$ralewayFont',
                     ),
                   ),
                   color: state.mobile != null && state.error != null
                       ? Colors.red
-                      : Colors.grey,
+                      : Colors.white,
                 );
               },
             ),
@@ -118,14 +119,15 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void onRegisterDevice() async {
-    XsProgressHud.show(context);
+    showProgress(context);
 
     registerBloc.registerDevice((results) {
-      XsProgressHud.hide();
+      hideProgress(context);
 
       if (results != false) {
-        userBloc.setAuthToken(results['access_token']);
-        userBloc.setAuthUser(results['user']);
+        User user = results;
+        userBloc.setAuthToken(user.id.toString());
+        userBloc.setAuthUser(results);
 
         return Navigator.pushReplacement(
           context,
@@ -135,6 +137,7 @@ class _LoginPageState extends State<LoginPage> {
             },
           ),
         );
+      } else {
       }
     });
   }
