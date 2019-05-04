@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:milestone/blocs/user/bloc.dart';
 import 'package:milestone/blocs/user/state.dart';
 import 'package:milestone/flutter_bloc/bloc_provider.dart';
-import 'package:milestone/helpers/initial_screen.dart';
+import 'package:milestone/screens/page/initial_screen.dart';
 import 'package:milestone/screens/widgets/no_network.dart';
 
 class MyApp extends StatefulWidget {

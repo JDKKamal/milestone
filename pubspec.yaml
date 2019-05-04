@@ -20,6 +20,9 @@ dependencies:
   device_id:
   intl:
   youtube_player:
+  font_awesome_flutter:
+  cloud_firestore:
+  path_drawing:
 
 dev_dependencies:
   flutter_test:

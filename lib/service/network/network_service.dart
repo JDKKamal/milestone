@@ -12,31 +12,8 @@ class NetworkService extends NetworkType implements APIService {
   static final _baseUrl = 'http://track.quik-e.mobi';
   final _loginUrl = _baseUrl + '/api/CheckLogisticUser';
 
-  //PICKUP - POSTPONE - DISPATCH LIST
-  final _pickUpAssignListUrl = _baseUrl + '/api/SelectPickupAssignList';
-  final _postPoneAssignListUrl = _baseUrl + '/api/SelectPostponedList';
-  final _dispatchAssignListUrl = _baseUrl + '/api/SelectDispatchAssignList';
-
   //PICKUP - DISPATCH UNDELIVERED REASON LIST
   final _postPoneCancelReasonListUrl = _baseUrl + '/api/PostponeReasonList';
-  final _dispatchUndeliveredReasonListUrl =
-      _baseUrl + '/api/DispatchReasonList';
-
-  //PICKUP CANCEL - DISPATCH RETURN
-  final _pickUpCancelReasonUrl = _baseUrl + '/api/TempCancelPickup?';
-  final _dispatchUndeliveredReasonUrl = _baseUrl + "/api/DispatchReturn?";
-
-  //PICKUP - DISPATCH DONE
-  final _pickUpDoneUrl = _baseUrl + '/api/UpdatePickupDone';
-  final _dispatchDoneUrl = _baseUrl + '/api/UpdateDispatchDone';
-
-  //PICKUP - DISPATCH POSTPONE
-  final _pickUpPostPoneReasonUrl = _baseUrl + '/api/PickupPostponed';
-  final _dispatchPostPoneReasonUrl = _baseUrl + '/api/DeliveryPostponed';
-
-  //DASHBOARD
-  final _dashboardDataDispatch = _baseUrl + '/api/SelectDashboardDataDispatch';
-  final _dashboardDataPickUp = _baseUrl + '/api/SelectDashboardDataPickup';
 
   Map<String, String> headers = {
     "Content-Type": 'application/json',

@@ -87,19 +87,21 @@ class _ChooseReasonState extends State<ChooseReason> {
                 ),
                 Expanded(
                   child: Container(
-                    margin: EdgeInsets.only(left: 20.0),
+                    margin: EdgeInsets.only(left: 20.0, right: 20),
                     child: ListView.builder(
                       itemCount: reasonList.length,
                       itemBuilder: (BuildContext context, index) {
                         final Reason reason = reasonList[index];
-                        return GestureDetector(
+                        return InkWell(
+                          borderRadius: BorderRadius.circular(50.0),
+                          highlightColor: Colors.blueGrey,
                           onTap: () {
 
                           },
                           child: Container(
                             padding: EdgeInsets.all(10.0),
                             child: Text(
-                              '${reasonList[index].description}',
+                              '${reason.description}',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 15.0,

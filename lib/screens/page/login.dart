@@ -1,16 +1,16 @@
 import 'package:device_id/device_id.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:milestone/blocs/Register/bloc.dart';
 import 'package:milestone/blocs/Register/event.dart';
 import 'package:milestone/blocs/Register/state.dart';
 import 'package:milestone/blocs/user/bloc.dart';
 import 'package:milestone/flutter_bloc.dart';
 import 'package:milestone/flutter_bloc/bloc_provider.dart';
-import 'package:milestone/helpers/initial_screen.dart';
+import 'package:milestone/screens/page/initial_screen.dart';
 import 'package:milestone/helpers/vars.dart';
 import 'package:milestone/models/user.dart';
 import 'package:milestone/screens/widgets/animatedbutton.dart';
-import 'package:milestone/screens/widgets/common_dialogs.dart';
 import 'package:milestone/screens/widgets/editable.dart';
 
 class LoginPage extends StatefulWidget {
@@ -46,7 +46,6 @@ class _LoginPageState extends State<LoginPage> {
       body: SafeArea(
         child: Column(
           children: [
-            Container(height: 30.0),
             Expanded(
               child: Container(
                 padding: EdgeInsets.all(10.0),
@@ -92,7 +91,8 @@ class _LoginPageState extends State<LoginPage> {
                 bloc: registerBloc,
                 builder: (BuildContext context, RegisterState state) {
                   if (state.error != null && state.error.containsKey('error')) {
-                    loginErrorMessageController.showErrorMessage('Loading'); //state.error['error']
+                    loginErrorMessageController
+                        .showErrorMessage('Loading'); //state.error['error']
                   }
                   return new AnimatedButton(
                     loginErrorMessageController: loginErrorMessageController,
@@ -103,7 +103,87 @@ class _LoginPageState extends State<LoginPage> {
                     },
                   );
                 }),
-            Container(height: 50.0),
+
+            /*BlocBuilder<RegisterEvent, RegisterState>(
+              bloc: registerBloc,
+              builder: (BuildContext context, RegisterState state) {
+                return FlatButton(
+                  onPressed: onRegisterDevice,
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30.0),
+                  ),
+                  child: Text(
+                    "Register".toUpperCase(),
+                    style: TextStyle(
+                      color: state.mobile != null && state.error != null
+                          ? Colors.white
+                          : Colors.black,
+                      fontFamily: '$ralewayFont',
+                    ),
+                  ),
+                  color: state.mobile != null && state.error != null
+                      ? Colors.red
+                      : Colors.white,
+                );
+              },
+            ),*/
+
+            Container(height: 30.0),
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+              Center(
+                child: Container(
+                  child: RaisedButton(
+                    elevation: 40.0,
+                    color: Colors.white,
+                    splashColor: Colors.orangeAccent,
+                    onPressed: () {
+                      //do nothing
+                    },
+                    shape: CircleBorder(
+                      side: BorderSide(style: BorderStyle.none),
+                    ),
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Icon(
+                          FontAwesomeIcons.google,
+                          color: Color(0xffCE107c),
+                          size: 30.0,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Center(
+                child: Container(
+                  child: RaisedButton(
+                    elevation: 40.0,
+                    color: Colors.white,
+                    splashColor: Colors.orangeAccent,
+                    onPressed: () {
+                      //do nothing
+                    },
+                    shape: CircleBorder(
+                      side: BorderSide(style: BorderStyle.none),
+                    ),
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Icon(
+                          FontAwesomeIcons.facebookF,
+                          color: Color.fromRGBO(59, 89, 152, 1.0),
+                          size: 30.0,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ]),
+            Container(height: 30.0),
           ],
         ),
       ),
